@@ -1,0 +1,10 @@
+# Defaults for ff-watchdog initscript
+# sourced by /etc/init.d/ff-watchdog
+# installed at /etc/default/ff-watchdog by the maintainer scripts
+
+#
+# This is a POSIX shell fragment
+#
+
+# Additional options that are passed to the Daemon.
+DAEMON_OPTS="-c /etc/ffac/watchdog_config.json -n $(hostname)"

@@ -1,0 +1,15 @@
+Source: ff-watchdog
+Section: net
+Priority: optional
+Maintainer: Jan Niehusmann <jan@gondor.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+
+Package: ff-watchdog
+Architecture: all
+Depends: ${misc:Depends}, fastd
+Description: Watchdog for Freifunk Aachen supernodes
+ The watchdog process automatically handles (some)
+ short-circuits betweeen nodes of different segments of
+ the Freifunk Aachen Wifi mesh.
+
