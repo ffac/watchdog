@@ -24,12 +24,18 @@ PORT = 11684
 
 GITBASEDIR="/etc/fastd/.peers/fastd-peers-clients"
 
+if not os.path.isdir(GITBASEDIR):
+    syslog.syslog("git basedir at "+GITBASEDIR+" does not exist")
+    sys.exit("missing repo basedir")
+
 os.chdir(GITBASEDIR)
 
 if not os.path.isdir(".git"):
+    syslog.syslog("git basedir at "+GITBASEDIR+" is missing a .git subdirectory")
     sys.exit("bad repo basedir")
 
 if len(subprocess.check_output(["git", "status", "--porcelain"])) != 0:
+    syslog.syslog("git is not clean")
     sys.exit("git is not clean")
 
 class WebhookHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
