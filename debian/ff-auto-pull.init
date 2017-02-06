@@ -1,6 +1,6 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          ff-auto-git-pull
+# Provides:          ff-auto-pull
 # Required-Start:    $local_fs $network $remote_fs $syslog
 # Required-Stop:     $local_fs $network $remote_fs $syslog
 # Default-Start:     2 3 4 5
@@ -14,9 +14,9 @@
 # Do NOT "set -e"
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
-DESC="ff-auto-git-pull"
-NAME=ff-auto-git-pull
-DAEMON=/usr/sbin/ff-auto-git-pull
+DESC="ff-auto-pull"
+NAME=ff-auto-pull
+DAEMON=/usr/sbin/ff-auto-pull
 DAEMON_ARGS=""
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME

@@ -23,4 +23,4 @@ export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
 override_dh_installinit:
 	dh_installinit -R
-	dh_installinit -R --name ff-auto-git-pull
+	dh_installinit -R --name ff-auto-pull
