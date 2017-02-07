@@ -2,6 +2,11 @@
 
 # detect segment shortcuts and propose resolutions
 
+pluginpath = [
+    '/usr/share/ff-watchdog/',
+]
+
+
 import argparse
 import json
 import time
