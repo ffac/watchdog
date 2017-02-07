@@ -63,12 +63,16 @@ class WebhookHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
     def pull_from_github(self):
         syslog.syslog("pull from github triggered")
-        old_commit = subprocess.check_output(["git", "rev-parse", "HEAD"])
-        subprocess.call(["git", "pull"])
-        new_commit = subprocess.check_output(["git", "rev-parse", "HEAD"])
-        syslog.syslog("old commit: {}, new commit: {}".format(old_commit, new_commit))
-        if old_commit != new_commit:
-            self.reload()
+        try:
+            old_commit = subprocess.check_output(["git", "rev-parse", "HEAD"])
+            subprocess.call(["git", "pull"])
+            new_commit = subprocess.check_output(["git", "rev-parse", "HEAD"])
+            syslog.syslog("old commit: {}, new commit: {}".format(old_commit, new_commit))
+            if old_commit != new_commit:
+                self.reload()
+        except Exception as e:
+            syslog.syslog("git pull caused exception: {}".format(str(e)))
+            raise
 
 Handler = WebhookHTTPRequestHandler
 
