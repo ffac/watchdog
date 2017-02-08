@@ -16,7 +16,7 @@
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="ff-watchdog"
 NAME=ff-watchdog
-DAEMON=/usr/sbin/ff-watchdog
+DAEMON=/usr/lib/ff-watchdog/ff-watchdog
 DAEMON_ARGS=""
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
