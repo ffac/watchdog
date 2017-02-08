@@ -7,4 +7,4 @@
 #
 
 # Additional options that are passed to the Daemon.
-DAEMON_OPTS="-c /etc/ffac/watchdog_config.json -n $(hostname)"
+DAEMON_ARGS="-c /etc/ffac/watchdog_config.json -n $(hostname)"
