@@ -7,7 +7,7 @@ Standards-Version: 3.9.5
 
 Package: ff-watchdog
 Architecture: all
-Depends: ${misc:Depends}, fastd, python3, python3-requests
+Depends: ${misc:Depends}, fastd, python3, python3-requests, git
 Description: Watchdog for Freifunk Aachen supernodes
  The watchdog process automatically handles (some)
  short-circuits betweeen nodes of different segments of
