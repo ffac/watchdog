@@ -4,11 +4,6 @@ set -e
 
 exec 2>&1 1> >(logger -t move_to_segment)
 
-if (( $EUID == 0 )); then
-	echo "Please don't run move_to_segment.sh as root"
-	exit 1
-fi
-
 REPO=$1
 SEGMENT=$2
 KEY=$3
