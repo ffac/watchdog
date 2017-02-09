@@ -1,3 +1,11 @@
+ff-watchdog (0.2) unstable; urgency=medium
+
+  * Fix pushing of new fastd keys.
+  * Remove start-stop-daemon option --remove-pidfile
+  * Fix stopping ff-watchdog by init script
+
+ -- Jan Niehusmann <jan@gondor.com>  Thu, 09 Feb 2017 00:54:59 +0100
+
 ff-watchdog (0.1) unstable; urgency=low
 
   * Initial Release.
