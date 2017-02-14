@@ -1,3 +1,9 @@
+ff-watchdog (0.3) UNRELEASED; urgency=medium
+
+  * Add a README with installation instructions
+
+ -- Jan Niehusmann <jan@gondor.com>  Thu, 09 Feb 2017 23:56:17 +0100
+
 ff-watchdog (0.2) unstable; urgency=medium
 
   * Fix pushing of new fastd keys.

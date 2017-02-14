@@ -1,0 +1,22 @@
+This package is only useful on Freifunk Aachen supernodes.
+
+It contains configuration files with site-specific settings, which are
+not properly documented. So adapting it to a different site may be a
+lot of work.
+
+After installing the package, a few manual steps are necessary:
+
+- the slack webhook url must be set in /root/.slack-webhook-url
+- /var/lib/ff-watchdog/staging must contain a clone of
+  ffac/fastd-peers-clients.git, setup with proper permissions to
+  allow for password-less pushes.
+  (e.g., remote url could be something like
+  git@github-fastd-peers:ffac/fastd-peers-clients.git where
+  github-fastd-peers is an alias defined in /root/.ssh/config with an
+  identity file containing an authorized key)
+- /etc/fastd/.peers/fastd-peers-clients is the clone of ffac/fastd-peers-clients.git
+  which is actually used by fastd. I must be owned by the user fastd,
+  and setup to allow for a simple 'git pull' as that user. Write access
+  to github is not necessary.
+
+
