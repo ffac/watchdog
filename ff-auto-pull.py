@@ -74,9 +74,12 @@ class WebhookHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             syslog.syslog("git pull caused exception: {}".format(str(e)))
             raise
 
+class WatchdogServer(socketserver.TCPServer):
+    allow_reuse_address = True
+
 Handler = WebhookHTTPRequestHandler
 
-httpd = socketserver.TCPServer(("", PORT), Handler)
+httpd = WatchdogServer(("", PORT), Handler)
 
 syslog.syslog("serving at port {}".format(PORT))
 httpd.serve_forever()
