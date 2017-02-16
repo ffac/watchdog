@@ -78,6 +78,7 @@ class WatchdogServer(socketserver.TCPServer):
     allow_reuse_address = True
 
 Handler = WebhookHTTPRequestHandler
+Handler.timeout = 10
 
 httpd = WatchdogServer(("", PORT), Handler)
 
