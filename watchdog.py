@@ -84,6 +84,9 @@ class Watchdog:
                                 if segment_config['prio'] < self.config['segments'][other_seg]['prio']:
                                     syslog.syslog("Move node to other segment")
                                     subprocess.call(["/usr/lib/ff-watchdog/move_to_segment.sh", "/var/lib/ff-watchdog/staging", other_seg, peer[0]])
+                                elif segment_config['prio'] == self.config['segments'][other_seg]['prio']:
+                                    syslog.syslog("Same prio - don't know what do do... move to segment 1, instead'")
+                                    subprocess.call(["/usr/lib/ff-watchdog/move_to_segment.sh", "/var/lib/ff-watchdog/staging", "1", peer[0]])
 
                     except Exception as e:
                         syslog.syslog("error finding fastd key: {}".format(e))

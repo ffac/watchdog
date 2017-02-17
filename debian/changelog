@@ -1,3 +1,10 @@
+ff-watchdog (0.4) unstable; urgency=medium
+
+  * On short-circuit between segments with same prio, move to segment 1,
+    instead.
+
+ -- Jan Niehusmann <jan@debian.org>  Fri, 17 Feb 2017 21:43:45 +0100
+
 ff-watchdog (0.3) unstable; urgency=medium
 
   * Add a README with installation instructions
