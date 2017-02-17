@@ -1,10 +1,10 @@
-ff-watchdog (0.3) UNRELEASED; urgency=medium
+ff-watchdog (0.3) unstable; urgency=medium
 
   * Add a README with installation instructions
   * Set a timeout for http requests
   * Set allow_reuse_address = True in ff-auto-pull.py
 
- -- Jan Niehusmann <jan@gondor.com>  Thu, 09 Feb 2017 23:56:17 +0100
+ -- Jan Niehusmann <jan@gondor.com>  Thu, 16 Feb 2017 15:49:38 +0100
 
 ff-watchdog (0.2) unstable; urgency=medium
 
