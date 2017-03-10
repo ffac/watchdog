@@ -7,6 +7,8 @@ import os
 import sys
 import pwd
 import syslog
+import time
+import threading
 
 def drop_privs(user):
     pwnam = pwd.getpwnam(user)
@@ -21,6 +23,8 @@ syslog.openlog(logoption=syslog.LOG_PID | syslog.LOG_PERROR)
 syslog.syslog("daemon started")
 
 PORT = 11684
+
+WAIT_TIME = 5
 
 GITBASEDIR="/etc/fastd/.peers/fastd-peers-clients"
 
@@ -46,23 +50,39 @@ class WebhookHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(response)))
         self.end_headers()
         self.wfile.write(response)
-        # TODO: rate-limit
-        self.pull_from_github()
+        self.server.schedule_pull_from_github()
 
     def do_POST(self):
         # handle POST just like GET
         self.do_GET()
 
-    def reload(self):
-        syslog.syslog("triggering fastd config reload")
-        for seg in range(1,8):
-            fn = "/var/run/fastd.{0:02}-clients.pid".format(seg)
-            subprocess.call(["pkill", "-HUP", "-F", fn])
-        for fn in ["/var/run/fastd.00-clients.pid"]:
-            subprocess.call(["pkill", "-USR2", "-F", fn])
+
+class WatchdogServer(socketserver.TCPServer):
+    allow_reuse_address = True
+
+    def __init__(self, server_address, RequestHandlerClass, bind_and_activate=True):
+        self.timer = None
+        self.lastrun = 0
+        super().__init__(server_address, RequestHandlerClass, bind_and_activate)
+
+    def schedule_pull_from_github(self):
+        """Trigger a call to pull_from_github, but not more often than once a minute."""
+        now = time.time()
+        diff = now - self.lastrun
+        if diff > WAIT_TIME:
+            self.pull_from_github()
+        else:
+            if self.timer != None:
+                syslog.syslog("pull from github skipped, timer is already running")
+            else:
+                self.timer = threading.Timer(WAIT_TIME - diff, self.pull_from_github)
+                self.timer.start()
+                syslog.syslog("pull from github scheduled")
 
     def pull_from_github(self):
         syslog.syslog("pull from github triggered")
+        self.lastrun = time.time()
+        self.timer = None
         try:
             old_commit = subprocess.check_output(["git", "rev-parse", "HEAD"])
             subprocess.call(["git", "pull"])
@@ -74,8 +94,15 @@ class WebhookHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             syslog.syslog("git pull caused exception: {}".format(str(e)))
             raise
 
-class WatchdogServer(socketserver.TCPServer):
-    allow_reuse_address = True
+    def reload(self):
+        syslog.syslog("triggering fastd config reload")
+        for seg in range(1,8):
+            fn = "/var/run/fastd.{0:02}-clients.pid".format(seg)
+            subprocess.call(["pkill", "-HUP", "-F", fn])
+        for fn in ["/var/run/fastd.00-clients.pid"]:
+            subprocess.call(["pkill", "-USR2", "-F", fn])
+
+
 
 Handler = WebhookHTTPRequestHandler
 Handler.timeout = 10

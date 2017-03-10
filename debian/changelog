@@ -1,3 +1,9 @@
+ff-watchdog (0.5) unstable; urgency=medium
+
+  * Limit triggered pulls to one per 5 seconds
+
+ -- Jan Niehusmann <jan@debian.org>  Fri, 10 Mar 2017 22:49:38 +0100
+
 ff-watchdog (0.4) unstable; urgency=medium
 
   * On short-circuit between segments with same prio, move to segment 1,
