@@ -74,19 +74,22 @@ class Watchdog:
                             syslog.syslog("peer ip is {}".format(peer[1]['address']))
                             msg += ('key "{}";\n'.format(peer[0]))
                             known = self.known_shorts.get(peer[0])
-                            if known == None or known.get('segment') != segment: # new short circuit
-                                if self.webhook_url != None:
-                                    syslog.syslog("New entry - send alert!")
-                                    self.known_shorts[peer[0]] = { 'segment': segment }
-                                    payload= { 'username': 'watchdog on '+self.nodename, 'text': "```" + msg + "```", 'icon_emoji': ':dog2' }
-                                    r=requests.post(self.webhook_url,data=json.dumps(payload))
-                                    syslog.syslog("{} {}".format(r.status_code, r.text))
-                                if segment_config['prio'] < self.config['segments'][other_seg]['prio']:
-                                    syslog.syslog("Move node to other segment")
-                                    subprocess.call(["/usr/lib/ff-watchdog/move_to_segment.sh", "/var/lib/ff-watchdog/staging", other_seg, peer[0]])
-                                elif segment_config['prio'] == self.config['segments'][other_seg]['prio']:
-                                    syslog.syslog("Same prio - don't know what do do... move to segment 1, instead'")
-                                    subprocess.call(["/usr/lib/ff-watchdog/move_to_segment.sh", "/var/lib/ff-watchdog/staging", "1", peer[0]])
+                            if known == None: # new short circuit
+                                if known.get('segment') == segment and ( time.time() - known.get('time') < 300 ):
+                                    syslog.syslog("Ignoring short circuit for {} more seconds.".format( 300 + known.get('time') - time.time()) )
+                                else:
+                                    if self.webhook_url != None:
+                                        syslog.syslog("New entry - send alert!")
+                                        self.known_shorts[peer[0]] = { 'segment': segment, 'time': time.time() }
+                                        payload= { 'username': 'watchdog on '+self.nodename, 'text': "```" + msg + "```", 'icon_emoji': ':dog2' }
+                                        r=requests.post(self.webhook_url,data=json.dumps(payload))
+                                        syslog.syslog("{} {}".format(r.status_code, r.text))
+                                    if segment_config['prio'] < self.config['segments'][other_seg]['prio']:
+                                        syslog.syslog("Move node to other segment")
+                                        subprocess.call(["/usr/lib/ff-watchdog/move_to_segment.sh", "/var/lib/ff-watchdog/staging", other_seg, peer[0]])
+                                    elif segment_config['prio'] == self.config['segments'][other_seg]['prio']:
+                                        syslog.syslog("Same prio - don't know what do do... move to segment 1, instead'")
+                                        subprocess.call(["/usr/lib/ff-watchdog/move_to_segment.sh", "/var/lib/ff-watchdog/staging", "1", peer[0]])
 
                     except Exception as e:
                         syslog.syslog("error finding fastd key: {}".format(e))

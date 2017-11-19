@@ -1,3 +1,9 @@
+ff-watchdog (0.6) unstable; urgency=medium
+
+  * Limit time to ignore known short circuits to 5 minutes
+
+ -- Jan Niehusmann <jan@debian.org>  Sun, 19 Nov 2017 22:16:20 +0100
+
 ff-watchdog (0.5) unstable; urgency=medium
 
   * Limit triggered pulls to one per 5 seconds
