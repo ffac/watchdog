@@ -8,7 +8,7 @@ class FastdParser:
         self.basepath = basepath
 
     def _file_status(self, filename):
-        with open(filename, 'r') as file:
+        with open(filename, 'r', encoding='utf-8', errors='replace') as file:
             return self._parse_status(file)
 
     def _parse_status(self, data):
@@ -18,7 +18,7 @@ class FastdParser:
         filename = self.basepath + "/" + socketname
         with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as sock:
             sock.connect(filename)
-            file = sock.makefile()
+            file = sock.makefile(encoding='utf-8', errors='replace')
             return self._parse_status(file)
 
     def peer_for_mac(self, status, mac):
