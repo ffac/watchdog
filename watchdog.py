@@ -74,8 +74,8 @@ class Watchdog:
                             syslog.syslog("peer ip is {}".format(peer[1]['address']))
                             msg += ('key "{}";\n'.format(peer[0]))
                             known = self.known_shorts.get(peer[0])
-                            if known == None: # new short circuit
-                                if known.get('segment') == segment and ( time.time() - known.get('time') < 300 ):
+                            if known == None or known.get('segment') != segment: # new short circuit
+                                if known != None and known.get('segment') == segment and ( time.time() - known.get('time') < 300 ):
                                     syslog.syslog("Ignoring short circuit for {} more seconds.".format( 300 + known.get('time') - time.time()) )
                                 else:
                                     if self.webhook_url != None:

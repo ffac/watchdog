@@ -1,3 +1,9 @@
+ff-watchdog (0.8) unstable; urgency=medium
+
+  * Fix logic bug introduced in version 0.6
+
+ -- Jan Niehusmann <jan@debian.org>  Tue, 23 Jan 2018 00:56:04 +0100
+
 ff-watchdog (0.7) unstable; urgency=medium
 
   * Make fastd socket reader more robust to bad encodings
