@@ -1,3 +1,11 @@
+ff-watchdog (0.9) unstable; urgency=medium
+
+  * Limit time to ignore known short circuits to 5 minutes
+    (As introduced in 0.6, but broken, again, by hotfix for
+    different issue in 0.8)
+
+ -- Jan Niehusmann <jan@debian.org>  Tue, 23 Jan 2018 01:35:07 +0100
+
 ff-watchdog (0.8) unstable; urgency=medium
 
   * Fix logic bug introduced in version 0.6
