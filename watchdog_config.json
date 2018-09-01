@@ -135,6 +135,34 @@
         "ac:c0:1d:07:fe:04"
       ],
       "prio": 2
+    },
+    "08": {
+      "batman": "bat08",
+      "gateways": [
+        "ac:c1:2d:08:fe:01",
+        "ac:c1:2d:08:fe:02",
+        "ac:c1:2d:08:fe:03",
+        "ac:c1:2d:08:fe:04",
+        "ac:c0:1d:08:fe:01",
+        "ac:c0:1d:08:fe:02",
+        "ac:c0:1d:08:fe:03",
+        "ac:c0:1d:08:fe:04"
+      ],
+      "prio": 3
+    },
+    "09": {
+      "batman": "bat09",
+      "gateways": [
+        "ac:c1:2d:09:fe:01",
+        "ac:c1:2d:09:fe:02",
+        "ac:c1:2d:09:fe:03",
+        "ac:c1:2d:09:fe:04",
+        "ac:c0:1d:09:fe:01",
+        "ac:c0:1d:09:fe:02",
+        "ac:c0:1d:09:fe:03",
+        "ac:c0:1d:09:fe:04"
+      ],
+      "prio": 3
     }
   },
   "interfaces": {
@@ -196,6 +224,22 @@
     },
     "tap-07-server": {
       "fastd_socket": "fastd-07-server.sock",
+      "ignore": true
+    },
+    "tap-08-nodes": {
+      "fastd_socket": "fastd-08-clients.sock",
+      "ignore": false
+    },
+    "tap-08-server": {
+      "fastd_socket": "fastd-08-server.sock",
+      "ignore": true
+    },
+    "tap-09-nodes": {
+      "fastd_socket": "fastd-09-clients.sock",
+      "ignore": false
+    },
+    "tap-09-server": {
+      "fastd_socket": "fastd-09-server.sock",
       "ignore": true
     },
     "tap-server": {
