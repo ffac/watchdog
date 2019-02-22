@@ -1,3 +1,10 @@
+ff-watchdog (0.12) unstable; urgency=medium
+
+  * ignore whitespaces in interface names
+  * add new interfaces to config
+
+ -- Jan Niehusmann <jan@debian.org>  Fri, 22 Feb 2019 23:51:26 +0100
+
 ff-watchdog (0.11) unstable; urgency=medium
 
   * trigger fasts for segments 8,9 after auto-pull
