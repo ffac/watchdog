@@ -18,7 +18,7 @@ class BatmanParser:
 
     def __init__(self, basepath = "/sys/kernel/debug/batman_adv/"):
         self.basepath = basepath
-        self.RE = re.compile(r' *([^ ]*) \(([^)]*)\) ([^ ]*) \[([^]]*)\]:')
+        self.RE = re.compile(r' *([^ ]*) \(([^)]*)\) ([^ ]*) \[ *([^]]*)\]:')
 
     def gateways(self, device):
         filename = self.basepath + "/" + device + "/gateways"
