@@ -97,10 +97,10 @@ class WatchdogServer(socketserver.TCPServer):
     def reload(self):
         syslog.syslog("triggering fastd config reload")
         for seg in range(1,10):
-            service = "fastd@{0:02}\\x2dclients.service".format(seg)
-            subprocess.call(["systemctl", "reload", service])
-        for service in ["fastd@00\\x2dclients.service"]:
-            subprocess.call(["systemctl", "kill", "-s", "USR2", service])
+            fn = "/var/run/fastd/fastd.{0:02}-clients.pid".format(seg)
+            subprocess.call(["pkill", "-HUP", "-F", fn])
+        for fn in ["/var/run/fastd/fastd.00-clients.pid"]:
+            subprocess.call(["pkill", "-USR2", "-F", fn])
 
 
 

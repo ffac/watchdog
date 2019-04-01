@@ -1,3 +1,10 @@
+ff-watchdog (0.14) unstable; urgency=medium
+
+  * Next try to fix reloading of fastd config with systemd
+    (Previous attempt didn't work as non-root user)
+
+ -- Jan Niehusmann <jan@debian.org>  Mon, 01 Apr 2019 20:05:13 +0200
+
 ff-watchdog (0.13) unstable; urgency=medium
 
   * Fix reloading of fastd config with systemd
