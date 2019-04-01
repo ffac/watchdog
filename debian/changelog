@@ -1,3 +1,9 @@
+ff-watchdog (0.13) unstable; urgency=medium
+
+  * Fix reloading of fastd config with systemd
+
+ -- Jan Niehusmann <jan@debian.org>  Mon, 01 Apr 2019 19:22:45 +0200
+
 ff-watchdog (0.12) unstable; urgency=medium
 
   * ignore whitespaces in interface names
